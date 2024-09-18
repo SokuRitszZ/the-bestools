@@ -1,0 +1,25 @@
+{
+  "name": "the-bestools",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "solid-js": "^1.8.15"
+  },
+  "devDependencies": {
+    "@soku-conf/eslint-config": "^1.1.1",
+    "@types/lodash": "^4.17.7",
+    "eslint": "^8.57.1",
+    "typescript": "^5.2.2",
+    "unocss": "^0.62.4",
+    "vite": "^5.2.0",
+    "vite-plugin-solid": "^2.10.2",
+    "vite-plugin-static-copy": "^1.0.6"
+  }
+}
