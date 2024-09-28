@@ -1,10 +1,10 @@
-import { ParentProps } from 'solid-js';
+import { PropsWithChildren } from 'react';
 
-interface Props extends ParentProps {}
+interface Props extends PropsWithChildren {}
 
 export const Window = (props: Props) => {
 
   return (
-    <div class={'w-500px h-500px'}>{props.children}</div>
+    <div className={'w-500px h-500px'}>{props.children}</div>
   );
 };

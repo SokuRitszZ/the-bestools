@@ -1,4 +1,4 @@
-import { createEffect, createSignal } from 'solid-js';
+import { useEffect, useState } from 'react';
 import { iife } from '../utils';
 
 interface Props<T> {
@@ -7,7 +7,7 @@ interface Props<T> {
 }
 
 export const useStorage = <T, >({ key, defaultValue }: Props<T>) => {
-  const [value, setValue] = createSignal(iife(() => {
+  const [value, setValue] = useState(iife(() => {
     const str = localStorage.getItem(key) ?? '';
     try {
       return JSON.parse(str) as T;
@@ -17,17 +17,17 @@ export const useStorage = <T, >({ key, defaultValue }: Props<T>) => {
     }
   }));
 
-  createEffect(() => {
+  useEffect(() => {
     const str = iife(() => {
       try {
-        return JSON.stringify(value());
+        return JSON.stringify(value);
       }
       catch {
         return '';
       }
     });
     localStorage.setItem(key, str);
-  });
+  }, [value]);
 
   return [value, setValue] as const;
 };

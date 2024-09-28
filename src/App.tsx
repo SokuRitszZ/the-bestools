@@ -5,7 +5,7 @@ import { TextReplacer } from './pages/TextReplacer';
 function App() {
 
   return (
-    <div class={'w-screen h-screen flex items-center justify-center bg-#fff'}>
+    <div className={'w-screen h-screen flex items-center justify-center bg-#fff'}>
       <Window>
         <TextReplacer />
       </Window>

@@ -9,17 +9,28 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@mui/material": "^6.1.1",
+    "classnames": "^2.5.1",
     "lodash": "^4.17.21",
-    "solid-js": "^1.8.15"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@iconify-json/mdi": "^1.2.0",
     "@soku-conf/eslint-config": "^1.1.1",
     "@types/lodash": "^4.17.7",
+    "@types/react": "^18.3.10",
+    "@types/react-dom": "^18.3.0",
+    "@typescript-eslint/eslint-plugin": "^8.7.0",
+    "@vitejs/plugin-react": "^4.3.1",
     "eslint": "^8.57.1",
+    "sass": "^1.79.4",
     "typescript": "^5.2.2",
     "unocss": "^0.62.4",
     "vite": "^5.2.0",
-    "vite-plugin-solid": "^2.10.2",
-    "vite-plugin-static-copy": "^1.0.6"
+    "vite-plugin-static-copy": "^1.0.6",
+    "vite-tsconfig-paths": "^5.0.1"
   }
 }
