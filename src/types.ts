@@ -6,3 +6,5 @@ export interface Tool {
   description: string;
   component: ReactNode;
 }
+
+export type Key = string | number;

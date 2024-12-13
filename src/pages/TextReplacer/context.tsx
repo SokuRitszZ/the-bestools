@@ -1,8 +1,8 @@
 import { PropsWithChildren, useContext } from 'react';
 import { ParameterMap, Template, TextReplacerProps } from './types';
-import { AnemicModel } from '@/types/common';
 import { simpleContext } from '@/utils';
 import { useAnemicModel } from '@/hooks/useAnemicModel';
+import { AnemicModel } from '@/types/common';
 
 interface Model {
   templateKey?: string;

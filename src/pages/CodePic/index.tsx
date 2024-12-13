@@ -2,8 +2,8 @@ import { FormControl, IconButton, InputLabel, MenuItem, Popover, Select, TextFie
 import { useEffect, useRef, useState } from 'react';
 import hc from 'html2canvas';
 import cx from 'classnames';
+import commonSt from '../../common.module.scss';
 import { LANGUAGES } from './consts';
-import st from './index.module.scss';
 import { CodePicturePlaceholder } from './components';
 import { ModelProvider } from './contexts';
 import { defineTool } from '@/utils';
@@ -66,7 +66,7 @@ const RawCodePic = () => {
             <div className="i-mdi:file-code w-1em h-1em"></div>
           </IconButton>
         </div>
-        <TextField className={cx(st.textarea, 'flex-1')} multiline rows={18} label={'Code'} value={code} onChange={text(setCode)} />
+        <TextField className={cx(commonSt.textarea, 'flex-1')} multiline rows={18} label={'Code'} value={code} onChange={text(setCode)} />
         <pre ref={el => el && (paperRef.current = el)} className={' fixed top-200vh left-200vw bg-white'}>
           <CodeHL language={language} text={code} />
         </pre>

@@ -1,0 +1,25 @@
+{
+    "string": "string",
+    "number": 114514,
+    "boolean": true,
+    "array": [
+        "string",
+        999,
+        false,
+        [
+            "string",
+            888,
+            true
+        ],
+        {
+            "hello": "world"
+        }
+    ],
+    "object": {
+        "array": [
+            1,
+            2,
+            "p"
+        ]
+    }
+}
