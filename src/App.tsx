@@ -4,12 +4,13 @@ import { Window } from './components';
 import { TOOLS_MAP } from './consts';
 
 import './pages/TextReplacer';
+import './pages/CodePic';
 
 function App() {
   const [currentTool, setCurrentTool] = useState('');
 
   return (
-    <div className={'w-screen h-screen flex items-center justify-center bg-#fff'}>
+    <div className={'w-screen h-screen flex items-center justify-center bg-#fff gap-4'}>
       {keysIn(TOOLS_MAP).map(key => 
         <Window
           tool={TOOLS_MAP[key]}

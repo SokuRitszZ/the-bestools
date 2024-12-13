@@ -8,7 +8,7 @@ import { defineTool } from '@/utils';
 export const RawTextReplacer = () => {
 
   return (
-    <div className={'w-full h-full flex flex-col gap-16px pt-2 rounded-10px'}>
+    <div className={'w-full h-full flex flex-col gap-16px rounded-10px pt-2'}>
       <TemplateRecord />
       <ParameterMapRecord />
       <DisplayBoard />

@@ -37,7 +37,7 @@ export const ParameterMapRecord = () => {
   return (
     <div className={'flex items-stretch flex-0 gap-4px'}>
       <FormControl className={'bg-white flex-1'}>
-        <InputLabel id={'parameter-map'}>Parameter Map</InputLabel>
+        <InputLabel size={'small'} id={'parameter-map'}>Parameter Map</InputLabel>
         <Select 
           size={'small'}
           label={'Parameter Map'}

@@ -35,7 +35,7 @@ export const TemplateRecord = () => {
   return (
     <div className={'flex items-center flex-0 gap-4px'}>
       <FormControl className={'bg-white flex-1'}>
-        <InputLabel id={'template'}>Template</InputLabel>
+        <InputLabel size={'small'} id={'template'}>Template</InputLabel>
         <Select 
           size={'small'}
           label={'Template'}
