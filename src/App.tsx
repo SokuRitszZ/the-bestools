@@ -6,6 +6,7 @@ import { TOOLS_MAP } from './consts';
 import './pages/TextReplacer';
 import './pages/CodePic';
 import './pages/JsonVisual';
+import './pages/JsonTyping';
 
 function App() {
   const [currentTool, setCurrentTool] = useState('');

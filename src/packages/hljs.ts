@@ -4,10 +4,11 @@ import hljs from 'highlight.js';
 import cpp from 'highlight.js/lib/languages/cpp';
 import ts from 'highlight.js/lib/languages/typescript';
 import rust from 'highlight.js/lib/languages/rust';
+import json from 'highlight.js/lib/languages/json';
 import { entriesIn } from 'lodash';
 import 'highlight.js/styles/atom-one-dark.min.css';
 
-const ENTRIES_MAP = { cpp, ts, rust };
+const ENTRIES_MAP = { cpp, ts, rust, json };
 
 entriesIn(ENTRIES_MAP).map(([key, fn]) => {
   hljs.registerLanguage(key, fn);

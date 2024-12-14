@@ -7,6 +7,7 @@ import { ModelProvider, useModel } from './ctx';
 import { useJson } from './hooks/useJson';
 import { defineTool } from '@/utils';
 import { text } from '@/utils/form-callbacks';
+import { CodeHL } from '@/components/CodeHL';
 
 const RawJsonVisual = ()=> {
   const { jsonText, setJsonText, path } = useModel();
@@ -25,10 +26,13 @@ const RawJsonVisual = ()=> {
         <Path />
         <Cascader />
         {json.status === 'ok' && 
-        <pre className={'h-130px overflow-auto'}>
-          {JSON.stringify(path.reduce((pre, path) => {
-            return pre[path];
-          }, json.item as any), null, 2)}
+        <pre className={'h-130px w-full overflow-auto'}>
+          <CodeHL 
+            language={'json'}
+            text={JSON.stringify(path.reduce((pre, path) => {
+              return pre[path];
+            }, json.item as any), null, 2)} 
+          />
         </pre>
         }
       </div>

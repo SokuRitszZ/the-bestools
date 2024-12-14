@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useModel } from '../../ctx';
 import { useJson } from '../../hooks/useJson';
 import { Tree } from '../Tree';
+import { ErrorMention } from '@/components/ErrorMention';
 
 export const Cascader = () => {
   const maybeJson = useJson();
@@ -21,7 +22,11 @@ export const Cascader = () => {
         </div>
       }
       {maybeJson.status === 'error' && 
-        <div>JSON ERROR</div>
+        <ErrorMention
+          className={'w-full'}
+          icon={<div className="i-mdi:file-document-alert w-7em h-7em"></div>}
+          text={'The json is invalid.'}
+        />
       }
     </div>
   );

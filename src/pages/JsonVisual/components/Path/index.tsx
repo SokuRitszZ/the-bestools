@@ -1,3 +1,4 @@
+import { Fragment } from 'react/jsx-runtime';
 import { useModel } from '../../ctx';
 
 export const Path = () => {
@@ -10,7 +11,7 @@ export const Path = () => {
     <div className={'w-full min-h-12 flex items-center flex-wrap gap-x-6px font-mono'}>
       {path.map((key, index) => {
         return (
-          <>
+          <Fragment key={`${key} ${index}`}>
             {index > 0 && <div className="i-mdi:chevron-right w-12px h-12px"></div>}
             <div 
               className={'hover:underline cursor-pointer'}
@@ -19,7 +20,7 @@ export const Path = () => {
             >
               {key}
             </div>
-          </>
+          </Fragment>
         );
       })}
     </div>
