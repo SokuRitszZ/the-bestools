@@ -10,11 +10,11 @@ const processName = flow(camelCase, upperFirst);
 export const processJsonType = (json: Json, name = 'root'): JType => {
   const typeName = getType(json);
 
-  name = processName(name);
+  const newTypeName = processName(name);
 
   switch (typeName) {
   case 'array': {
-    const jsonTypes = (json as Json[]).map((item) => processJsonType(item, `${name}Item`));
+    const jsonTypes = (json as Json[]).map((item) => processJsonType(item, `${newTypeName}Item`));
     const uniqueTypeNames = 
       flow(
         map(prop('type')),
@@ -30,7 +30,7 @@ export const processJsonType = (json: Json, name = 'root'): JType => {
   case 'object':
     return {
       type: 'object',
-      name: processName(name),
+      name,
       item: keys(json).map(key => {
         return processJsonType((json as any)[key] as Json, key);
       }),
@@ -60,12 +60,12 @@ const getTypeString = (type: JType): string => {
   case 'array': {
     const itemTypeName = !type.item?.length ? '[]' :
       ['tuple', 'array', 'object'].includes(type.item[0].type) ? 
-        `${type.name}Item[]` : `${type.item[0].type}[]`;
+        `${processName(type.name)}Item[]` : `${type.item[0].type}[]`;
     return itemTypeName;
   }
   case 'tuple': 
   case 'object': {
-    return type.name;
+    return processName(type.name);
   }
   default: {
     return type.type;
@@ -73,12 +73,39 @@ const getTypeString = (type: JType): string => {
   }
 };
 
+const mergeObject = (name: string, types: JType[]) => {
+  const typeNames = types.map(prop('type'));
+  const uniqueTypeNames = uniq(typeNames);
+  const mergedObject = iife(() => {
+    if (uniqueTypeNames.includes('object')) {
+      const objectTypes = types.filter(typeItem => typeItem.type === 'object');
+      const propsGroups = compact(objectTypes?.map(prop('item')));
+      const totalProps = flow(flatten, compact, uniqBy(prop('name')))(objectTypes?.map(prop('item')));
+      const commonPropNames = intersectionBy(...propsGroups ?? [], prop('name')).map(prop('name'));
+      const obj: JType = {
+        name: `${name}Item`,
+        type: 'object',
+        item: totalProps.map(prop => {
+          return commonPropNames.includes(prop.name)
+            ? prop
+            : {
+              ...prop,
+              optional: true,
+            };
+        }),
+      };
+      return obj;
+    }
+  });
+  return mergedObject;
+};
+
 export const generateTsCode = (type: JType): string => {
   const tsCode = iife(() => {
     switch (type.type) {
     case 'object':
       return INTERFACE_TEMPLATE
-        .replace('{name}', type.name)
+        .replace('{name}', processName(type.name))
         .replace('{maps}', type.item ? type.item.map(x => {
           return `${x.name}${x.optional ? '?' : ''}: ${getTypeString(x)};`;
         }).join(`\n${TAB}`) : '{}');
@@ -86,38 +113,23 @@ export const generateTsCode = (type: JType): string => {
       if (!type.item) {
         return; 
       }
-      const typeNames = type.item.map(prop('type'));
-      const uniqueTypeNames = uniq(typeNames);
-      const mergedObject = iife(() => {
-        if (uniqueTypeNames.includes('object')) {
-          const objectTypes = type.item?.filter(typeItem => typeItem.type === 'object');
-          const propsGroups = compact(objectTypes?.map(prop('item')));
-          const totalProps = flow(flatten, compact, uniqBy(prop('name')))(objectTypes?.map(prop('item')));
-          const commonPropNames = intersectionBy(...propsGroups ?? [], prop('name')).map(prop('name'));
-          const obj: JType = {
-            name: `${type.name}Item`,
-            type: 'object',
-            item: totalProps.map(prop => {
-              return commonPropNames.includes(prop.name)
-                ? prop
-                : {
-                  ...prop,
-                  optional: true,
-                };
-            }),
-          };
-          return obj;
-        }
-      });
+      const mergedObject = mergeObject(type.name, type.item);
       return mergedObject ? generateTsCode(mergedObject) : undefined;
     }
-    case 'tuple':
-      return TYPE_TEMPLATE
-        .replace('{name}', `${type.name}`)
+    case 'tuple': {
+      if (!type.item) {
+        return ;
+      }
+      const mergedObject = mergeObject(type.name, type.item);
+      const objectCode = mergedObject ? generateTsCode(mergedObject) : undefined;
+      const tupleCode = TYPE_TEMPLATE
+        .replace('{name}', `${processName(type.name)}`)
         .replace('{maps}', `[${type.item?.map(getTypeString).join(', ')}]`);
+      return compact([tupleCode, objectCode]).join('');
+    }
     default: 
     }
   });
 
-  return compact([tsCode, ...type.type !== 'array' ? type.item?.map(generateTsCode) ?? [] : []]).join('');
+  return compact([tsCode, ...!['array', 'tuple'].includes(type.type) ? type.item?.map(generateTsCode) ?? [] : []]).join('');
 };
