@@ -4,6 +4,7 @@ import { Button, Slider } from '@mui/material';
 import { useTrackAudio } from './hooks/useTrackAudio';
 import { AudioPlayer } from './components/AudioPlayer';
 import { WaveForm } from './components/WaveForm';
+// import { getAudioDomainData } from './utils';
 import { defineTool } from '@/utils';
 import { file } from '@/utils/form-callbacks';
 import { lg } from '@/utils/lg';
@@ -11,8 +12,9 @@ import { lg } from '@/utils/lg';
 export const AudioWaving = () => {
   const [audio, setAudio] = useState<HTMLAudioElement>();
   const [fftSize, setFftSize] = useState(2048);
+  // const [domainData, setDomainData] = useState<number[]>([]);
   const [data, setData] = useState(times(fftSize >> 1, () => 0));
-  // const [avgs, setAvgs] = useState<number[]>([]);
+  
   useTrackAudio({
     audio,
     onSampled: (data) => setData(data),
@@ -28,6 +30,7 @@ export const AudioWaving = () => {
 
     const url = URL.createObjectURL(audioFile);
     setAudio(new Audio(url));
+    // getAudioDomainData(audioFile).then(setDomainData);
   };
 
   return (
@@ -59,7 +62,9 @@ export const AudioWaving = () => {
       {/* player */}
       {audio ? 
         <AudioPlayer audio={audio} className={'w-full'}/>
-        : undefined}
+        : undefined
+      }
+      {/* <WaveForm data={domainData.map(x => x * 64)} /> */}
     </div>
   );
 };
