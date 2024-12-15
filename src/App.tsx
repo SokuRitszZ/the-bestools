@@ -7,6 +7,7 @@ import './pages/TextReplacer';
 import './pages/CodePic';
 import './pages/JsonVisual';
 import './pages/JsonTyping';
+import './pages/AudioWaving';
 
 function App() {
   const [currentTool, setCurrentTool] = useState('');

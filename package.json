@@ -13,6 +13,7 @@
     "@emotion/styled": "^11.13.0",
     "@mui/material": "^6.1.1",
     "classnames": "^2.5.1",
+    "dayjs": "^1.11.13",
     "highlight.js": "^11.10.0",
     "html2canvas": "^1.4.1",
     "lodash": "^4.17.21",
