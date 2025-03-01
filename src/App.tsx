@@ -12,6 +12,7 @@ import './pages/CodePic';
 import './pages/JsonVisual';
 import './pages/JsonTyping';
 import './pages/AudioWaving';
+import './pages/PicTransparentor';
 
 function App() {
   const [currentTool, setCurrentTool] = useState('');
@@ -49,6 +50,7 @@ function App() {
           <div className={'flex flex-wrap gap-4 pt-6 w-full'}>
             {keysIn(TOOLS_MAP).filter(key => toLower(key).includes(search)).map(key => 
               <Window
+                key={key}
                 tool={TOOLS_MAP[key]}
                 open={key === currentTool}
                 onSelect={() => setCurrentTool(key)}

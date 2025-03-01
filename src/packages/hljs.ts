@@ -14,6 +14,4 @@ entriesIn(ENTRIES_MAP).map(([key, fn]) => {
   hljs.registerLanguage(key, fn);
 });
 
-console.log('import');
-
 export { hljs };

@@ -6,7 +6,6 @@ import { DisplayBoard } from './components/DisplayBoard';
 import { defineTool } from '@/utils';
 
 export const RawTextReplacer = () => {
-
   return (
     <div className={'w-full h-full flex flex-col gap-16px rounded-10px pt-2'}>
       <TemplateRecord />

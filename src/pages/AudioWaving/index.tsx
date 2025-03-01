@@ -30,7 +30,6 @@ export const AudioWaving = () => {
 
     const url = URL.createObjectURL(audioFile);
     setAudio(new Audio(url));
-    // getAudioDomainData(audioFile).then(setDomainData);
   };
 
   return (
