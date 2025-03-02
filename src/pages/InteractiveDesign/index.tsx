@@ -14,6 +14,6 @@ export const InteractiveDesign = () => {
 defineTool({
   name: 'InteractiveDesign',
   icon: <div className="i-mdi:button-pointer" />,
-  description: '',
+  description: 'Design digit interactive.',
   component: <InteractiveDesign />,
 });
